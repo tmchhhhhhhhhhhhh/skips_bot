@@ -1,0 +1,35 @@
+name: Daily Poll
+
+on:
+  schedule:
+    - cron: '0 19 * * *'
+  workflow_dispatch:
+
+jobs:
+  send_poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install requests
+      - name: Run send_poll
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          GROUP: ${{ secrets.GROUP }}
+        run: |
+          python - <<'PY'
+import json, os, subprocess
+cfg = {
+    "BOT_TOKEN": os.environ["BOT_TOKEN"],
+    "chat_id": int(os.environ["CHAT_ID"]),
+    "group": os.environ["GROUP"]
+}
+with open("config.json","w") as f:
+    json.dump(cfg,f)
+subprocess.run(["python","send_poll.py"], check=True)
+PY
