@@ -17,12 +17,12 @@ jobs:
       - name: Install deps
         run: pip install requests
       - name: Run send_poll
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
-          GROUP: ${{ secrets.GROUP }}
-        run: |
-          python3 - <<EOF
+  env:
+    BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+    CHAT_ID: ${{ secrets.CHAT_ID }}
+    GROUP: ${{ secrets.GROUP }}
+  run: |
+    python3 - <<EOF
 import json, os, subprocess
 
 cfg = {
