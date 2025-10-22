@@ -76,10 +76,9 @@ def send_poll_via_api(bot_token, chat_id, question, options, message_thread_id=N
         "question": question,
         "options": json.dumps(options),
         "is_anonymous": str(anonymous).lower(),
-        "allows_multiple_answers": str(multiple).lower()
+        "allows_multiple_answers": str(multiple).lower(),
+        "message_thread_id": message_thread_id 
     }
-    if message_thread_id:
-        data["message_thread_id"] = message_thread_id  # для отправки в топик
 
     r = requests.post(url, data=data, timeout=10)
     try:
@@ -94,7 +93,7 @@ def main():
     bot_token = cfg["BOT_TOKEN"]
     chat_id = cfg["chat_id"]
     group = cfg["group"]
-    thread_id = cfg.get("thread_id") 
+    thread_id = cfg["thread_id"]
 
     lessons = get_tomorrow_lessons(group)
     if not lessons:
