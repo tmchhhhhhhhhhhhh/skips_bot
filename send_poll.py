@@ -119,10 +119,7 @@ def main():
 
     question = (datetime.now() + timedelta(days=1)).strftime("%d.%m.%Y")
     print(len(lessons))
-    # Настраиваем мультивыбор в зависимости от числа пар
-    multiple = True if len(lessons) > 1 else False
-    if len(lessons) == 1:
-        lessons.insert(0, lessons[0][3:])
+    lessons.append("буду везде")
 
     send_poll_via_api(
         bot_token,
@@ -131,7 +128,7 @@ def main():
         lessons,
         message_thread_id=thread_id,
         anonymous=False,
-        multiple=multiple,
+        multiple=True,
     )
 
     # Второй опрос с причинами
