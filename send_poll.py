@@ -36,7 +36,7 @@ def get_tomorrow_lessons(group):
     if not data:
         return None
 
-    tomorrow = datetime.now() #+ timedelta(days=1)
+    tomorrow = datetime.now() + timedelta(days=1)
     days_map = {
         0: "Понедельник",
         1: "Вторник",
